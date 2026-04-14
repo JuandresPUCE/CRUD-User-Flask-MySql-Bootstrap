@@ -11,3 +11,6 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- insertar un usuario
 INSERT INTO users (id, username, name, password) VALUES (1, 'usuario_prueba@gmail.com', 'Usuario Prueba', 'test_123');
+
+-- consulta
+select * from users;
