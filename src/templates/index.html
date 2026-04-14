@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB">
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <!-- Contenido de la página -->
+    <h1 class="text-center mt-5 mb-5 text-primary">VistaGeneral con python flask y sql</h1>
+    <div class="container"> 
+
+        <div class="card shadow">
+            <div class="card-body">
+                <!-- Formulario para agregar usuarios con ruta user_add para POST y agregar-->
+                <form action="/user_add" method="POST">
+                    <div class="row mb-3"> 
+                        <div class="col">
+                            <label>UserName</label>
+                            <input type="text" name="username" class="form-control mb-3">
+                        </div>
+
+                        <div class="col">
+                            <label>Name</label>
+                            <input type="text" name="name" class="form-control mb-3" >
+                        </div>
+
+                        
+                        <div class="col">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control mb-3" >
+                        </div>
+                        
+                        <div class="col">
+                            <button class="btn btn-primary mb-3 mt-4" type="submit">Save</button>
+
+                        </div>
+
+                    </div>
+
+
+                </form>
+
+                <!-- Tabla-->
+
+                <table class="table table-bordered">
+                    <thead>
+                        <!-- Encabezados de la tabla -->
+                        <th scope="col">#</th>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </thead>
+                    <tbody>
+                        {% for dat in data %}
+                            <tr>
+                                <!-- Filas de la tabla -->
+                                <td>{{ dat.id }}</td>                         
+                                <td>{{ dat.username }}</td>                         
+                                <td>{{ dat.name }}</td>                         
+                                <td>{{ dat.password }}</td>                         
+                                <td><button class="btn btn-primary btn-sm" id="btn-edit{{ dat.id }}" data-bs-toggle="modal" data-bs-target="#modal{{ dat.id }}">Edit</button></td>                         
+                                <td>
+                                    <form action="{{ url_for('delete_user', id=dat.id) }}" method="POST" style="display:inline;">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro?')">Delete</button>
+                                    </form>
+                                </td>      
+                            </tr>
+                            <!-- Modal para editar usuario -->
+                            <div class="modal fade" id="modal{{ dat.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit: {{ dat.username }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ url_for('update_user', id=dat.id) }}" method="POST">
+                                                <div class="mb-3">
+                                                    <label>UserName</label>
+                                                    <input type="text" name="username" class="form-control mb-3" value="{{ dat.username }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Name</label>
+                                                    <input type="text" name="name" class="form-control mb-3" value="{{ dat.name }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Password</label>
+                                                    <input type="password" name="password" class="form-control mb-3" value="{{ dat.password }}">
+                                                </div>
+                                                <button class="btn btn-primary" type="submit">Update</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        {% endfor %}                   
+                      
+
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+ 
+
+
+</body>
+
+
+</html>

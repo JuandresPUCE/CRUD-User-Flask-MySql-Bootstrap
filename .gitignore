@@ -1,0 +1,38 @@
+# Entorno virtual
+venv/
+env/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Variables de entorno (MUY IMPORTANTE)
+.env
+
+# Archivos de base de datos (por si usas SQLite en pruebas)
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Carpetas de build / cache
+instance/
+.cache/
+
+# Archivos de configuración sensibles
+config.py
+
+# MySQL dumps (exportaciones)
+*.sql
+
+# VSCode / IDE
+.vscode/
+.idea/
