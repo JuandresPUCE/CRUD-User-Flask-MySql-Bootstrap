@@ -31,7 +31,7 @@ instance/
 config.py
 
 # MySQL dumps (exportaciones)
-*.sql
+#*.sql
 
 # VSCode / IDE
 .vscode/
